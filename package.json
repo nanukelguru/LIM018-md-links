@@ -1,7 +1,23 @@
 {
-  "name": "md-links",
+  "name": "angelica-md-links",
   "version": "0.1.0",
+  "main":"index.js",
+  "author": "Angélica López",
   "engines": {
     "node": ">=16.x"
+  },
+  "dependencies": {
+    "jest": "^29.0.2"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest --verbose --coverage"
+  },
+  "repository": {
+    "type": "git",
+     "url": "git + https://github.com/nanukelguru/LIM018-md-links.git"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.0"
   }
 }
