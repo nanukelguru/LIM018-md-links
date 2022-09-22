@@ -1,17 +1,18 @@
 // Import the path module
 const path = require("path");
 // Import the fileSystem module
-const fs = require("fs");
+const fs = require('fs');
+
 
 const route = "./README.md";
-const absolutePathFile = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
-const relativePathFile = "LIM018-md-links/sampleFiles/readme.md";
+const absolutePath = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
+const relativePath = "LIM018-md-links/sampleFiles/readme.md";
 const absolutePathDirectory = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles";
 // const relativePathDirectory = "./sampleFiles/";
 
 /*Function used to check if a path exists*/
 const checkPathExists = (inputPath) => fs.existsSync(inputPath);
-console.log("1.The path exists returns", checkPathExists(absolutePathFile));
+console.log("1.The path exists returns", checkPathExists(absolutePath));
 
 //method used to synchronously check if a file already exists
 const fileExists = fs.existsSync(route);
@@ -21,7 +22,7 @@ console.log("2.The file exists returns", fileExists);
 const checkPathIsAbsolute = (inputPath) => path.isAbsolute(inputPath);
 console.log(
   "3.The path is absolute returns",
-  checkPathIsAbsolute(absolutePathFile)
+  checkPathIsAbsolute(absolutePath)
 );
 
 /*Function that verifies if the path is absolut and converts the path  to absolut*/
@@ -34,11 +35,14 @@ const convertToAbsolutePath = (inputPath) => {
     return path.resolve(inputPath);
   }
 };
-console.log(convertToAbsolutePath(relativePathFile));
+console.log(convertToAbsolutePath(relativePath));
 
 /*Function that verifies if the path is a directory*/
-// const checkDirectoryExists = (inputPath) => fs.statSync(inputPath);
-//   console.log(checkDirectoryExists("C:/Angelica/LABO3/LIM018-md-links/sampleFiles"));
+const checkDirectoryExists = (inputPath) => fs.statSync(inputPath);
+console.log(checkDirectoryExists("C:/Angelica/LABO3/LIM018-md-links/sampleFiles"));
+// Getting information for a directory
+//https://www.geeksforgeeks.org/node-js-fs-statsync-method/
+
 
 //method used for obtain the extension of a file
 const fileExtension = (inputPath) => path.extname(inputPath);
@@ -81,7 +85,7 @@ const findLinks = (route) => {
   return arrayOfLinks;
 };
 
-console.log(findLinks(absolutePathFile));
+console.log(findLinks(absolutePath));
 
 module.exports = {
   findLinks,

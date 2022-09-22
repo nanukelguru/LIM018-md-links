@@ -1,13 +1,13 @@
 // const mdLinks = require('../');
 const {
-  checkPathExists,
+  checkPathExists, convertToAbsolutePath,
   // convertToAbsolutePath
 } = require("../src/md-links");
 
 const path = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
 const wrongPath = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/index.md";
-// const absolutePathFile = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles";
-// const relativePathFile = "./md-links.spec.js";
+const absolutePath = "C:\\Angelica\\LABO3\\LIM018-md-links\\sampleFiles/readme.md";
+const relativePath = "./readme.md";
 
 describe('checkPathExists', () => {
 
@@ -15,6 +15,15 @@ describe('checkPathExists', () => {
     expect(checkPathExists(path)).toBe(true);
   });
   it('should return False if a path does not exists', () => {
-    expect(checkPathExists(wrongPath).toBe(false))
+    expect(checkPathExists(wrongPath)).toBe(false);
   })
+});
+
+describe('convertToAbsolutePath', () => {
+  it('should returns the absolute path if the path is absolute',() => {
+    expect(convertToAbsolutePath(absolutePath));
+  })
+  it('should convert relative path to absolut path' , () =>{
+    expect(convertToAbsolutePath(relativePath)).toBe(absolutePath);
+  });
 });
