@@ -6,8 +6,8 @@ const {
 
 const path = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
 const wrongPath = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/index.md";
-const absolutePath = "C:\\Angelica\\LABO3\\LIM018-md-links\\sampleFiles/readme.md";
-const relativePath = "./readme.md";
+const absolutePath = "C:\\Angelica\\LABO3\\LIM018-md-links\\sampleFiles\\readme.md";
+const relativePath = "./sampleFiles/readme.md";
 
 describe('checkPathExists', () => {
 
@@ -24,6 +24,7 @@ describe('convertToAbsolutePath', () => {
     expect(convertToAbsolutePath(absolutePath));
   })
   it('should convert relative path to absolut path' , () =>{
+    console.log(convertToAbsolutePath(relativePath))
     expect(convertToAbsolutePath(relativePath)).toBe(absolutePath);
   });
 });
