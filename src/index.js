@@ -1,10 +1,8 @@
-const chalk = require("chalk");
-
 const {
   checkPathExists,
   convertToAbsolutePath,
   findLinks,
-  throughDirectory,
+  throughOpenDirectory,
   getStatusLinks,
 } = require("./md-links.js");
 
@@ -20,11 +18,11 @@ const mdLinks = (path, options) => {
       reject("la ruta ingresada no es valida");
     }
     const absolutePath = convertToAbsolutePath(path);
-    console.log(absolutePath);
-    const filesOfDirectory = throughDirectory(absolutePath);
-    filesOfDirectory.forEach((path) => {
+    // console.log(absolutePath);
+    const arrayFilesmd = throughOpenDirectory(absolutePath);
+    arrayFilesmd.forEach((path) => {
       if (options.validate === true) {
-        resolve(getStatusLinks(findLinks(path)))
+        resolve(getStatusLinks(findLinks(path)));
        
       }
        resolve(findLinks(path));
@@ -34,7 +32,7 @@ const mdLinks = (path, options) => {
 
 
 
-mdLinks("C:/Angelica/LABO3/LIM018-md-links/sampleFiles", {validate:false})
+mdLinks("C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md", {validate:false})
   .then((result) => {
     console.log(result);
   })
