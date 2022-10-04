@@ -6,57 +6,41 @@ const {
   getStatusLinks,
 } = require("./md-links.js");
 
-const file = "../sampleFiles/file.txt";
-const route = "./REAME.md";
 const absolutePath = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
-const relativePath = "LIM018-md-links/sampleFiles/readme.md";
-const absolutePathDirectory = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles";
 
 const mdLinks = (path, options) => {
+  console.log("valor de option", options);
   return new Promise((resolve, reject) => {
-    if (checkPathExists(path) === false) {
-      reject("la ruta ingresada no es valida");
+    if (!checkPathExists(path)) {
+      reject("The path entered is not valid.");
     }
     const absolutePath = convertToAbsolutePath(path);
     // console.log(absolutePath);
     const arrayFilesmd = throughOpenDirectory(absolutePath);
+
     arrayFilesmd.forEach((path) => {
       if (options.validate === true) {
         resolve(getStatusLinks(findLinks(path)));
-       
       }
-       resolve(findLinks(path));
+      resolve(findLinks(path));
     });
   });
 };
 
+// mdLinks((absolutePath), {validate: true})
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
 
-
-mdLinks("C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md", {validate:false})
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-//console.log(totalStats(absolutePath));
-// if(checkPathExists(absolutePath(path))==='.md'){
-//   mdLinks.findLinks
-// const absPath = convertToAbsolutPath(absPath);
-// const arrayOfFiles =
-// })
-//   }
-
-//  console.log(mdLinks(route))
-
-// mdLinks(absolutePath, { validate: false })
-//     .then(response => {
-//         console.log(response);
-//     })
-//     .catch(error => {
-//         console.log(error);
-//     });
-//     module.exports = {
-//       mdLinks
+// mdLinks("C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md", {validate:true})
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
 //     }
-// mdLinks('../sampleFiles'), {validate:true}.then(console.log).catch(console.error)
+module.exports = mdLinks;

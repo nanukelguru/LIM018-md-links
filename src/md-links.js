@@ -5,13 +5,6 @@ const fs = require('fs');
 
 const axios = require('axios'); 
 
-// const file = '../sampleFiles/file.txt';
-const route = "./README.md";
-const absolutePath = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
-// const relativePath = "LIM018-md-links/sampleFiles/readme.md";
-// const absolutePathDirectory = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles";
-// const relativePathDirectory = "./sampleFiles/";
-
 /*Function used to check if a path exists*/
 const checkPathExists = (inputPath) => fs.existsSync(inputPath); //return true or false
 
@@ -28,7 +21,7 @@ const convertToAbsolutePath = (inputPath) => {
 };
 
 /*Function that verifies if the path is a directory*/
- const checkDirectoryExists = (inputPath) => fs.statSync(inputPath).isDirectory();
+ const checkPathIsDirectory = (inputPath) => fs.statSync(inputPath).isDirectory();
 //  console.log(checkDirectoryExists(absolutePath))
  
 //Read the content of a directory
@@ -38,40 +31,37 @@ const readDirectory = (inputPath) => fs.readdirSync(inputPath);
 const readFile = (route) => fs.readFileSync(route, "utf-8");
 
 //method used for obtain the extension of a file
-const fileExtension = (inputPath) => path.extname(inputPath)=== 'md';
-
-  // Función para 
+const fileExtension = (inputPath) => path.extname(inputPath);
+ 
 const readFileMd = (route) => fileExtension(route) === ".md" ? fs.readFileSync(route, "utf-8") : "No se encontraron archivos con extensión .md";
 // console.log(readFileMd("/sampleFiles/samples/otherSamples", 'utf8'));
 
 /* Function to filter array and return array with only .md files */
-// const filterFilesmd = (arrayOfLinks) => arrayOfLinks.filter(file => path.extname(file) == ".md");
-// console.log(filterFilesmd('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/'));
+ const filterFilesmd = (arrayOfLinks) => arrayOfLinks.filter(file => path.extname(file) == ".md");
+//console.log(filterFilesmd('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/'));
+// console.log(filterFilesmd(arrayOfLinks));
 
 /*Recursive function to read a directory */
 const throughOpenDirectory = (inputPath) => {
-  let files = [];
-  if(!checkDirectoryExists(inputPath)){
-    return files.concat(inputPath);
+  let arrayFiles = [];
+  if(!checkPathIsDirectory(inputPath)){
+    return arrayFiles.concat(inputPath);
   }
   readDirectory(inputPath).forEach((file) => {
     const fullPath = path.join(inputPath, file);
-    if (checkDirectoryExists(fullPath)) {
+    if (checkPathIsDirectory(fullPath)) {
         const fileFolder = throughOpenDirectory(fullPath);
-        files = files.concat(fileFolder);
+        arrayFiles = arrayFiles.concat(fileFolder);
       }
          else if(fileExtension(fullPath) === '.md') {
-        files.push(fullPath);
+        arrayFiles.push(fullPath);
          }
     });
     //console.log(files);
-    return files;
+    return arrayFiles;
   };
   
-
-  //console.log(throughOpenDirectory('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/'));
-
-
+//console.log(throughOpenDirectory('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/'));
 
 /*Function to obtain links in array*/
 const findLinks = (route) => {
@@ -98,7 +88,6 @@ const findLinks = (route) => {
   });
   return arrayOfLinks;
 };
-console.log(findLinks(absolutePath));
 
 const getStatusLinks = (pathLinks) => {
   const array = pathLinks.map((element) => {
@@ -123,6 +112,7 @@ const getStatusLinks = (pathLinks) => {
   });
   return Promise.all(array);
 };
+
 // console.log(getStatusLinks("./README.md"));
 // getStatusLinks(findLinks("C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md")).then((result) => {
 //     console.log(result);
@@ -131,9 +121,12 @@ const getStatusLinks = (pathLinks) => {
 module.exports = {
   checkPathExists,
   checkPathIsAbsolute,
+  checkPathIsDirectory,
   convertToAbsolutePath,
   findLinks,
   getStatusLinks,
   throughOpenDirectory,
-  readFileMd,
+  filterFilesmd,
+  fileExtension,
+  readFileMd
 };

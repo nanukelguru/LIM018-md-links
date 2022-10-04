@@ -29,7 +29,7 @@ const totalStats = (arrayOfLinks) => {
   const totalLinks = arrayOfLinks.length;
   return totalLinks;
 };
-console.log(totalStats(newArrayTest));
+// console.log(totalStats(newArrayTest));
 
 // Unique Stats
 const uniqueStats = (arrayOfLinks) => {
@@ -38,7 +38,7 @@ const uniqueStats = (arrayOfLinks) => {
   }))];
   return uniqueLinks.length;
 };
-console.log(uniqueStats(newArrayTest));
+// console.log(uniqueStats(newArrayTest));
 
 // Broken Stats
 const brokenStats = (arrayOfLinks) => {
@@ -46,7 +46,7 @@ const brokenStats = (arrayOfLinks) => {
   const arrayBrokenLinks = arrayOfLinks.filter(link => link.message ==='FAIL');
   return arrayBrokenLinks.length;
 };
-console.log(brokenStats(newArrayTest));
+// console.log(brokenStats(newArrayTest));
 
 module.exports = {
   totalStats,
