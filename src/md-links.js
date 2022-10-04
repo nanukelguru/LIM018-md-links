@@ -61,7 +61,7 @@ const throughOpenDirectory = (inputPath) => {
     return arrayFiles;
   };
   
-//console.log(throughOpenDirectory('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/'));
+// console.log(throughOpenDirectory('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples'));
 
 /*Function to obtain links in array*/
 const findLinks = (route) => {

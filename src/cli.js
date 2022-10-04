@@ -20,25 +20,41 @@ const isStats = args.includes("--stats");
 
 mdLinks(pathArg, { stats: isStats, validate: isValidate })
   .then((arrayLinks) => {
-    arrayLinks.forEach((link) => {
-      if(!isValidate && !isStats){
-        mdLinks(pathArg, {isValidate});
-        console.log(`
-         ❀  LINKS FOUND ❀  
-      Href : ${chalk.yellow(link.href)};
-      Text : ${chalk.magenta(link.text)};
-      File : ${chalk.blue(link.file)};`);
-      }
-      else
+    if (isValidate && isStats) {
       console.log(`
+     ★ STATS && VALIDATE★
+      Total Links : ${chalk.blueBright(totalStats(arrayLinks))};
+      Unique Links: ${chalk.blue(uniqueStats(arrayLinks))};
+      Broken Links: ${chalk.cyan(brokenStats(arrayLinks))};
+    `);
+    } else if (isStats && !isValidate) {
+      console.log(`
+     ★ STATS ★
+      Total Links   : ${chalk.blueBright(totalStats(arrayLinks))};
+      Unique Links  : ${chalk.blue(uniqueStats(arrayLinks))}  
+    `);
+    } else {
+      arrayLinks.forEach((link) => {
+        if (!isStats && !isValidate) {
+          console.log(`
+          ❀  LINKS FOUND ❀  
+          Href : ${chalk.yellow(link.href)};
+          Text : ${chalk.magenta(link.text)};
+          File : ${chalk.blue(link.file)};`);
+        } else {
+          console.log(`
        ✿  STATUS LINKS FOUND ✿
      ${chalk.blueBright(link.file)} 
      ${chalk.magentaBright(link.text)}
      ${chalk.cyan(link.href)} 
-     ${link.message === "OK"? chalk.whiteBright(link.message): chalk.yellow(link.message)} 
+     ${
+       link.message === "OK"
+         ? chalk.whiteBright(link.message)
+         : chalk.yellow(link.message)
+     } 
      ${link.status}`);
-    });
+        }
+      });
+    }
   })
-  .catch((e) => console.log(chalk.bgRed(" * "), chalk.red.italic(e.message)));
-
-
+  .catch((e) => console.log(chalk.red(" ● "), chalk.red.italic(e.message)));

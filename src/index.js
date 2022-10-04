@@ -12,7 +12,7 @@ const mdLinks = (path, options) => {
   // console.log("valor de option", options);
   return new Promise((resolve, reject) => {
     if (!checkPathExists(path)) {
-      reject("The path entered is not valid.");
+      reject("The path entered is not valid. Please enter a valid Path");
     }
     const absolutePath = convertToAbsolutePath(path);
     // console.log(absolutePath);
@@ -27,7 +27,7 @@ const mdLinks = (path, options) => {
   });
 };
 
-// mdLinks((absolutePath), {validate: true})
+// mdLinks(('../sampleFiles/samples/otherSamples/hola.md'), {validate: false})
 //   .then((result) => {
 //     console.log(result);
 //   })
