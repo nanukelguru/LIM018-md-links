@@ -9,7 +9,7 @@ const {
 const absolutePath = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
 
 const mdLinks = (path, options) => {
-  console.log("valor de option", options);
+  // console.log("valor de option", options);
   return new Promise((resolve, reject) => {
     if (!checkPathExists(path)) {
       reject("The path entered is not valid.");

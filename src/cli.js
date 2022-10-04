@@ -18,35 +18,27 @@ const pathArg = args.filter((x) => !["--stats", "--validate"].includes(x))[2];
 const isValidate = args.includes("--validate");
 const isStats = args.includes("--stats");
 
-// if (pathArg === undefined) {
-//   // console.log(chalk.cyan.italic(" Please enter the route"));
-//   // console.log(chalk.cyan.italic("* Please enter help for more advice *"));
-// }
-
-// mdLinks(pathArg, { validate: isValidate })
-//   .then((links) =>
-//     links.forEach((link) =>
-//       console.log(`
-//     ** LINKS FOUND **
-//     ${chalk.yellow(link.file)}
-//     ${chalk.blue(link.text)}
-//     ${chalk.cyan(link.href)}
-//     `)
-//     )
-//   )
-//   .catch((e) => console.log(chalk.bgRed(" * "), chalk.red.italic(e.message)));
-
 mdLinks(pathArg, { stats: isStats, validate: isValidate })
   .then((arrayLinks) => {
     arrayLinks.forEach((link) => {
+      if(!isValidate && !isStats){
+        mdLinks(pathArg, {isValidate});
+        console.log(`
+         ❀  LINKS FOUND ❀  
+      Href : ${chalk.yellow(link.href)};
+      Text : ${chalk.magenta(link.text)};
+      File : ${chalk.blue(link.file)};`);
+      }
+      else
       console.log(`
- ❀  STATUS LINKS FOUND ❀  
-  ${chalk.blueBright(link.file)} 
-  ${chalk.magentaBright(link.text)}
-  ${chalk.cyan(link.href)} 
-  ${link.message === "OK" ? link.message : chalk.yellow(link.message)} ${
-        link.status
-      }`);
+       ✿  STATUS LINKS FOUND ✿
+     ${chalk.blueBright(link.file)} 
+     ${chalk.magentaBright(link.text)}
+     ${chalk.cyan(link.href)} 
+     ${link.message === "OK"? chalk.whiteBright(link.message): chalk.yellow(link.message)} 
+     ${link.status}`);
     });
   })
   .catch((e) => console.log(chalk.bgRed(" * "), chalk.red.italic(e.message)));
+
+
