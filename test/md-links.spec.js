@@ -2,7 +2,7 @@
 const {
   checkPathExists,
   convertToAbsolutePath,
-  findLinks,
+  findLinksmd,
   // convertToAbsolutePath
 } = require("../src/md-links");
 
@@ -34,8 +34,8 @@ describe("convertToAbsolutePath", () => {
   });
 });
 describe("findLinks", () => {
-  it("should find links with extension .md and return an array", () => {
-    const pathTest = "./sampleFiles/readme.md";
+  it("should find links with extension .md and returns an array", () => {
+    const pathTest ="C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
     const result = [
       {
         href: "https://github/workshopper/learnyounode",
@@ -53,6 +53,11 @@ describe("findLinks", () => {
         file: "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md",
       },
     ];
-    expect(findLinks(pathTest)).toEqual(result);
+    expect(findLinksmd(pathTest)).toEqual(result);
   });
 });
+
+// describe('getStatusLink', () => {
+//   it('This function must ')
+// })
+

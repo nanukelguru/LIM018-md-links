@@ -1,7 +1,7 @@
 const {
   checkPathExists,
   convertToAbsolutePath,
-  findLinks,
+  findLinksmd,
   throughOpenDirectory,
   getStatusLinks,
 } = require("./md-links.js");
@@ -17,17 +17,20 @@ const mdLinks = (path, options) => {
     const absolutePath = convertToAbsolutePath(path);
     // console.log(absolutePath);
     const arrayFilesmd = throughOpenDirectory(absolutePath);
+    // console.log(arrayFilesmd);
 
     arrayFilesmd.forEach((path) => {
       if (options.validate === true) {
-        resolve(getStatusLinks(findLinks(path)));
+        resolve(getStatusLinks(findLinksmd(path)));
       }
-      resolve(findLinks(path));
+      resolve(findLinksmd(path));
     });
   });
 };
 
-// mdLinks(('../sampleFiles/samples/otherSamples/hola.md'), {validate: false})
+// mdLinks("C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md", {
+//   validate: false,
+// })
 //   .then((result) => {
 //     console.log(result);
 //   })

@@ -22,8 +22,8 @@ mdLinks(pathArg, { stats: isStats, validate: isValidate })
   .then((arrayLinks) => {
     if (isValidate && isStats) {
       console.log(`
-     ★ STATS && VALIDATE★
-      Total Links : ${chalk.blueBright(totalStats(arrayLinks))};
+     ❖ STATS && VALIDATE ❖
+      Total  Links : ${chalk.blueBright(totalStats(arrayLinks))};
       Unique Links: ${chalk.blue(uniqueStats(arrayLinks))};
       Broken Links: ${chalk.cyan(brokenStats(arrayLinks))};
     `);
@@ -57,4 +57,4 @@ mdLinks(pathArg, { stats: isStats, validate: isValidate })
       });
     }
   })
-  .catch((e) => console.log(chalk.red(" ● "), chalk.red.italic(e.message)));
+  .catch((e) => console.log(chalk.red(" ● "), chalk.red.italic(e)));

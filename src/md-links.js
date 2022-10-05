@@ -57,14 +57,14 @@ const throughOpenDirectory = (inputPath) => {
         arrayFiles.push(fullPath);
          }
     });
-    //console.log(files);
+    //console.log(arrayFiles);
     return arrayFiles;
   };
   
-// console.log(throughOpenDirectory('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples'));
+//console.log(throughOpenDirectory('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples'));
 
 /*Function to obtain links in array*/
-const findLinks = (route) => {
+const findLinksmd = (route) => {
   const regExp = /(\[(.*?)\])?\(http(.*?)\)/gm;
   const arrayOfLinks = [];
 
@@ -72,7 +72,7 @@ const findLinks = (route) => {
   if (linksInFile === null) {
     return [];
   }
-  linksInFile.forEach((element) => {
+    linksInFile.forEach((element) => {
     const parentheses = /\(([^)]+)\)/; // return a string that appear between parentheses
     const httpLink = parentheses.exec(element);
     const href = httpLink[1];
@@ -88,6 +88,8 @@ const findLinks = (route) => {
   });
   return arrayOfLinks;
 };
+
+// console.log(findLinksmd('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples/otherSamples/hola.md'));
 
 const getStatusLinks = (pathLinks) => {
   const array = pathLinks.map((element) => {
@@ -123,7 +125,7 @@ module.exports = {
   checkPathIsAbsolute,
   checkPathIsDirectory,
   convertToAbsolutePath,
-  findLinks,
+  findLinksmd,
   getStatusLinks,
   throughOpenDirectory,
   filterFilesmd,
