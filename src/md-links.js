@@ -64,7 +64,7 @@ const throughOpenDirectory = (inputPath) => {
 //  console.log(throughOpenDirectory('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples'));
 
 /*Function to obtain links in array*/
-const findLinksmd = (route) => {
+const findLinks = (route) => {
   const regExp = /(\[(.*?)\])?\(http(.*?)\)/gm;
   const arrayOfLinks = [];
 
@@ -125,7 +125,7 @@ module.exports = {
   checkPathIsAbsolute,
   checkPathIsDirectory,
   convertToAbsolutePath,
-  findLinksmd,
+  findLinks,
   getStatusLinks,
   throughOpenDirectory,
   filterFilesmd,
