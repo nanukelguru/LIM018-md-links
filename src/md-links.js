@@ -57,11 +57,11 @@ const throughOpenDirectory = (inputPath) => {
         arrayFiles.push(fullPath);
          }
     });
-    //console.log(arrayFiles);
+    console.log('feña', arrayFiles);
     return arrayFiles;
   };
   
-//console.log(throughOpenDirectory('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples'));
+//  console.log(throughOpenDirectory('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples'));
 
 /*Function to obtain links in array*/
 const findLinksmd = (route) => {

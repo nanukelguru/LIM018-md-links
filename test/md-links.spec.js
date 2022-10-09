@@ -2,7 +2,8 @@
 const {
   checkPathExists,
   convertToAbsolutePath,
-  findLinksmd,
+  findLinks,
+  getStatusLinks,
   // convertToAbsolutePath
 } = require("../src/md-links");
 
@@ -10,10 +11,26 @@ const axios = require("axios");
 jest.mock("axios");
 
 const path = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
+ const pathTest = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples/otherSamples/hola.md";
 const wrongPath = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/index.md";
-const absolutePath =
-  "C:\\Angelica\\LABO3\\LIM018-md-links\\sampleFiles\\readme.md";
+const absolutePath = "C:\\Angelica\\LABO3\\LIM018-md-links\\sampleFiles\\readme.md";
 const relativePath = "./sampleFiles/readme.md";
+
+const arrayTest = [
+  {
+    href: "https://curriculum.laboratoria.la/es/topics/javascript/04-arrays",
+    text: "Arreglos",
+    file: "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples/otherSamples/hola.md",
+  },
+];
+
+const arrayTestFailed =[
+  {
+    href: "https://github/workshopper/learnyounode",
+    text: "learnyounode",
+    file: "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md",
+  },
+];
 
 describe("checkPathExists", () => {
   it("should return True if a path exists", () => {
@@ -33,31 +50,39 @@ describe("convertToAbsolutePath", () => {
     expect(convertToAbsolutePath(relativePath)).toBe(absolutePath);
   });
 });
+
 describe("findLinks", () => {
-  it("should find links with extension .md and returns an array", () => {
-    const pathTest ="C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
-    const result = [
-      {
-        href: "https://github/workshopper/learnyounode",
-        text: "learnyounode",
-        file: "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md",
-      },
-      {
-        href: "https://github.com/workshopper/how-to-npm",
-        text: "how-to-npm",
-        file: "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md",
-      },
-      {
-        href: "https://github.com/stevekane/promise-it-wont-hurt",
-        text: "promise-it-wont-hurt",
-        file: "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md",
-      },
-    ];
-    expect(findLinksmd(pathTest)).toEqual(result);
-  });
+  it("should find links with extension .md in a file and return an array", () =>
+    expect(findLinks(pathTest)).toEqual(arrayTest));
 });
 
-// describe('getStatusLink', () => {
-//   it('This function must ')
-// })
+describe('getStatusLinks', () => {
+  it('Should return the links in a file and shows: href, text, file, message and status', () => {
+    axios.get.mockImplementation(() => Promise.resolve({statusText: 'OK', status: 200}));
+    return getStatusLinks(arrayTest).then(response => expect(response).toStrictEqual([
+      {
+        href: "https://curriculum.laboratoria.la/es/topics/javascript/04-arrays",
+        text: "Arreglos",
+        file: "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples/otherSamples/hola.md",
+        message: 'OK',
+        status: 200,   
+      }
+    ]));
+  });
+
+    it("Should return an HTTP failed request and shows message: FAIL and Status: Failed", () => {
+      axios.get.mockImplementation(() =>Promise.reject({statusText: "FAIL", status: "Failed request"}));
+      return getStatusLinks(arrayTestFailed).catch((response) =>
+        expect(response).toEqual([
+          {
+            href: "https://github/workshopper/learnyounode",
+            text: "learnyounode",
+            file: "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md",
+            message: "FAIL",
+            status: "Failed request",
+          },
+        ])
+      );
+    });
+});
 

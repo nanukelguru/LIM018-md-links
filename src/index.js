@@ -1,12 +1,12 @@
 const {
   checkPathExists,
   convertToAbsolutePath,
-  findLinksmd,
+  findLinks,
   throughOpenDirectory,
   getStatusLinks,
 } = require("./md-links.js");
 
-const absolutePath = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
+///const absolutePath = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
 
 const mdLinks = (path, options) => {
   // console.log("valor de option", options);
@@ -14,17 +14,22 @@ const mdLinks = (path, options) => {
     if (!checkPathExists(path)) {
       reject("The path entered is not valid. Please enter a valid Path");
     }
+
     const absolutePath = convertToAbsolutePath(path);
     // console.log(absolutePath);
     const arrayFilesmd = throughOpenDirectory(absolutePath);
-    // console.log(arrayFilesmd);
+    //console.log(arrayFilesmd);
+    const arrayFindLink = [];
 
     arrayFilesmd.forEach((path) => {
-      if (options.validate === true) {
-        resolve(getStatusLinks(findLinksmd(path)));
-      }
-      resolve(findLinksmd(path));
+      arrayFindLink.push(findLinks(path));
+      //console.log('sin inter', arrayFindLink);
     });
+
+    if (options.validate === true) {
+      resolve(getStatusLinks(arrayFindLink.flat()));
+    }
+    resolve(findLinks(path));
   });
 };
 
@@ -32,11 +37,11 @@ const mdLinks = (path, options) => {
 //   validate: false,
 // })
 //   .then((result) => {
-//     console.log(result);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+//       console.log(result);
+//     })
+//     .catch((error) => {
+//   console.log(error);
+// });
 
 // mdLinks("C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md", {validate:true})
 //   .then((result) => {

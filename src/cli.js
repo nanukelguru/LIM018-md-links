@@ -14,6 +14,7 @@ const { totalStats, uniqueStats, brokenStats } = require("./cli-options.js");
 // arg[2] file route
 // arg[3] options --validate or --stats
 const args = process.argv;
+// console.log(args);
 const pathArg = args.filter((x) => !["--stats", "--validate"].includes(x))[2];
 const isValidate = args.includes("--validate");
 const isStats = args.includes("--stats");
@@ -38,21 +39,21 @@ mdLinks(pathArg, { stats: isStats, validate: isValidate })
         if (!isStats && !isValidate) {
           console.log(`
           ❀  LINKS FOUND ❀  
-          Href : ${chalk.yellow(link.href)};
-          Text : ${chalk.magenta(link.text)};
-          File : ${chalk.blue(link.file)};`);
+          href : ${chalk.yellow(link.href)};
+          text : ${chalk.magenta(link.text)};
+          file : ${chalk.blue(link.file)};`);
         } else {
           console.log(`
-       ✿  STATUS LINKS FOUND ✿
-     ${chalk.blueBright(link.file)} 
-     ${chalk.magentaBright(link.text)}
-     ${chalk.cyan(link.href)} 
-     ${
+          ✿ STATUS LINKS FOUND ✿
+          href: ${chalk.cyanBright(link.href)}
+          text: ${chalk.magentaBright(link.text)} 
+          file: ${chalk.blueBright(link.file)} 
+          message: ${
        link.message === "OK"
-         ? chalk.whiteBright(link.message)
+         ? chalk.green(link.message)
          : chalk.yellow(link.message)
-     } 
-     ${link.status}`);
+         } 
+          status: ${chalk.grey(link.status)}`);
         }
       });
     }
