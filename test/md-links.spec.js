@@ -1,4 +1,7 @@
 // const mdLinks = require('../');
+const { mdLinks } = require("../src/index");
+const { totalStats, uniqueStats, brokenStats } = require("../src/cli-options");
+
 const {
   checkPathExists,
   convertToAbsolutePath,
@@ -11,9 +14,11 @@ const axios = require("axios");
 jest.mock("axios");
 
 const path = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md";
- const pathTest = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples/otherSamples/hola.md";
+const pathTest =
+  "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples/otherSamples/hola.md";
 const wrongPath = "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/index.md";
-const absolutePath = "C:\\Angelica\\LABO3\\LIM018-md-links\\sampleFiles\\readme.md";
+const absolutePath =
+  "C:\\Angelica\\LABO3\\LIM018-md-links\\sampleFiles\\readme.md";
 const relativePath = "./sampleFiles/readme.md";
 
 const arrayTest = [
@@ -24,7 +29,7 @@ const arrayTest = [
   },
 ];
 
-const arrayTestFailed =[
+const arrayTestFailed = [
   {
     href: "https://github/workshopper/learnyounode",
     text: "learnyounode",
@@ -56,33 +61,61 @@ describe("findLinks", () => {
     expect(findLinks(pathTest)).toEqual(arrayTest));
 });
 
-describe('getStatusLinks', () => {
-  it('Should return the links in a file and shows: href, text, file, message and status', () => {
-    axios.get.mockImplementation(() => Promise.resolve({statusText: 'OK', status: 200}));
-    return getStatusLinks(arrayTest).then(response => expect(response).toStrictEqual([
-      {
-        href: "https://curriculum.laboratoria.la/es/topics/javascript/04-arrays",
-        text: "Arreglos",
-        file: "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples/otherSamples/hola.md",
-        message: 'OK',
-        status: 200,   
-      }
-    ]));
+describe("getStatusLinks", () => {
+  it("Should return the links in a file and shows: href, text, file, message and status", () => {
+    axios.get.mockImplementation(() =>
+      Promise.resolve({ statusText: "OK", status: 200 })
+    );
+    return getStatusLinks(arrayTest).then((response) =>
+      expect(response).toStrictEqual([
+        {
+          href: "https://curriculum.laboratoria.la/es/topics/javascript/04-arrays",
+          text: "Arreglos",
+          file: "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples/otherSamples/hola.md",
+          message: "OK",
+          status: 200,
+        },
+      ])
+    );
   });
 
-    it("Should return an HTTP failed request and shows message: FAIL and Status: Failed", () => {
-      axios.get.mockImplementation(() =>Promise.reject({statusText: "FAIL", status: "Failed request"}));
-      return getStatusLinks(arrayTestFailed).catch((response) =>
-        expect(response).toEqual([
-          {
-            href: "https://github/workshopper/learnyounode",
-            text: "learnyounode",
-            file: "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md",
-            message: "FAIL",
-            status: "Failed request",
-          },
-        ])
-      );
-    });
+  it("Should return an HTTP failed request and shows message: FAIL and Status: Failed", () => {
+    axios.get.mockImplementation(() =>
+      Promise.reject({ statusText: "FAIL", status: "Failed request" })
+    );
+    return getStatusLinks(arrayTestFailed).catch((response) =>
+      expect(response).toEqual([
+        {
+          href: "https://github/workshopper/learnyounode",
+          text: "learnyounode",
+          file: "C:/Angelica/LABO3/LIM018-md-links/sampleFiles/readme.md",
+          message: "FAIL",
+          status: "Failed request",
+        },
+      ])
+    );
+  });
 });
 
+describe('totalStats', () =>{
+  it("should be a function", () =>{
+    expect(typeof totalStats).toBe('function');
+  });
+  it('should show Total Links found in array', () =>{
+      expect(totalStats(arrayTest)).toEqual(1);
+  });
+});
+
+describe("uniqueStats", () => {
+  it("should show Unique Links found in array", () =>
+    expect(uniqueStats(arrayTest)).toEqual(1));
+});
+
+describe("brokenStats", () => {
+  it("should show Broken Links found in array", () =>
+    expect(brokenStats(arrayTest)).toStrictEqual(0));
+});
+
+describe("md-Links", () => {
+  it('should return an array ')
+})
