@@ -57,7 +57,7 @@ const throughOpenDirectory = (inputPath) => {
         arrayFiles.push(fullPath);
          }
     });
-    console.log('feña', arrayFiles);
+    // console.log('arrays', arrayFiles);
     return arrayFiles;
   };
   
