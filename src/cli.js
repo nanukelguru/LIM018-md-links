@@ -58,4 +58,4 @@ mdLinks(pathArg, { stats: isStats, validate: isValidate })
       });
     }
   })
-  .catch((e) => console.log(chalk.red(" ● "), chalk.red.italic(e.message)));
+  .catch((error) => console.log(chalk.red(" ● "), chalk.red.italic(error)));

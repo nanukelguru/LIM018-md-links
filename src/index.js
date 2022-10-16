@@ -23,7 +23,7 @@ const mdLinks = (path, options) => {
 
     arrayFilesmd.forEach((path) => {
       arrayFindLink.push(findLinks(path));
-      //console.log('sin inter', arrayFindLink);
+     // console.log('sin inter', arrayFindLink);
     });
 
     if (options.validate === true) {
@@ -33,7 +33,7 @@ const mdLinks = (path, options) => {
   });
 };
 
-// mdLinks(('../sampleFiles/samples/otherSamples/hola.md'), {validate: false})
+// mdLinks(('../sampleFiles/samples/otherSamples'), {validate: false})
 //   .then((result) => {
 //       console.log(result);
 //     })
@@ -48,5 +48,5 @@ const mdLinks = (path, options) => {
 //   .catch((error) => {
 //     console.log(error);
 //   });
-//     }
+
 module.exports = mdLinks;
