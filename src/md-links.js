@@ -48,6 +48,7 @@ const throughOpenDirectory = (inputPath) => {
     return arrayFiles.concat(inputPath);
   }
   readDirectory(inputPath).forEach((file) => {
+    // console.log('foreach', file);
     const fullPath = path.join(inputPath, file);
     if (checkPathIsDirectory(fullPath)) {
         const fileFolder = throughOpenDirectory(fullPath);
@@ -61,7 +62,7 @@ const throughOpenDirectory = (inputPath) => {
     return arrayFiles;
   };
   
-//  console.log(throughOpenDirectory('C:/Angelica/LABO3/LIM018-md-links/sampleFiles/samples'));
+ //console.log(throughOpenDirectory('C:/Angelica/LABO3/LIM018-md-links/sampleFiles'));
 
 /*Function to obtain links in array*/
 const findLinks = (route) => {

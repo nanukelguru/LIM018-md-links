@@ -32,13 +32,13 @@ mdLinks(pathArg, { stats: isStats, validate: isValidate })
       console.log(`
      ★ STATS ★
       Total Links   : ${chalk.blueBright(totalStats(arrayLinks))};
-      Unique Links  : ${chalk.blue(uniqueStats(arrayLinks))}  
+      Unique Links  : ${chalk.blue(uniqueStats(arrayLinks))}
     `);
     } else {
       arrayLinks.forEach((link) => {
         if (!isStats && !isValidate) {
           console.log(`
-          ❀  LINKS FOUND ❀  
+          ❀  LINKS FOUND ❀
           href : ${chalk.yellow(link.href)};
           text : ${chalk.magenta(link.text)};
           file : ${chalk.blue(link.file)};`);
@@ -46,16 +46,16 @@ mdLinks(pathArg, { stats: isStats, validate: isValidate })
           console.log(`
           ✿ STATUS LINKS FOUND ✿
           href: ${chalk.cyanBright(link.href)}
-          text: ${chalk.magentaBright(link.text)} 
-          file: ${chalk.blueBright(link.file)} 
+          text: ${chalk.magentaBright(link.text)}
+          file: ${chalk.blueBright(link.file)}
           message: ${
        link.message === "OK"
          ? chalk.green(link.message)
          : chalk.yellow(link.message)
-         } 
+         }
           status: ${chalk.grey(link.status)}`);
         }
       });
     }
   })
-  .catch((e) => console.log(chalk.red(" ● "), chalk.red.italic(e)));
+  .catch((error) => console.log(chalk.red(" ● "), chalk.red.italic(error)));

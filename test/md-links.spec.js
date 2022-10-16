@@ -1,5 +1,5 @@
 // const mdLinks = require('../');
-const { mdLinks } = require("../src/index");
+//const { mdLinks } = require("../src/index");
 const { totalStats, uniqueStats, brokenStats } = require("../src/cli-options");
 
 const {
@@ -116,6 +116,6 @@ describe("brokenStats", () => {
     expect(brokenStats(arrayTest)).toStrictEqual(0));
 });
 
-describe("md-Links", () => {
-  it('should return an array ')
-})
+// describe("md-Links", () => {
+//   it('should return an array ')
+// })
